@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/RabbITCybErSeC/Becon/server/models"
+	"github.com/RabbITCybErSeC/Bacon/server/models"
 	"gorm.io/gorm"
 )
 

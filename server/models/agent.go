@@ -1,4 +1,4 @@
-package Agent
+package models
 
 import (
 	"sync"

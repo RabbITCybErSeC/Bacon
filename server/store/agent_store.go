@@ -1,7 +1,7 @@
 package store
 
 import (
-	"github.com/RabbITCybErSeC/Becon/server/models"
+	"github.com/RabbITCybErSeC/Bacon/server/models"
 )
 
 type AgentStore interface {

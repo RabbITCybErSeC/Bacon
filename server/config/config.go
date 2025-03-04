@@ -4,7 +4,7 @@ package config
 import (
 	"log"
 
-	"github.com/RabbITCybErSeC/Becon/server/models"
+	"github.com/RabbITCybErSeC/Bacon/server/models"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
