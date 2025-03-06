@@ -1,0 +1,34 @@
+**/*.log
+*.log
+**/__pycache__/
+*.pyc
+*.DS_Store
+logs/*
+plugins/*
+.vscode/*
+build/*
+!build/build.md
+bin/*
+api/*
+
+# env file
+
+.env
+.env.production
+.env.development
+
+bin
+node_modules
+build
+
+.# React
+/ui/dist/env
+
+docker-images
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# Go workspace file
+go.work
+go.work.sum
