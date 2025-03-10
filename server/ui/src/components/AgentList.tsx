@@ -1,5 +1,5 @@
 // src/components/AgentList.tsx
-import { Agent } from '../types';
+import { Agent } from '../types/Types';
 
 interface AgentListProps {
   agents: Agent[];
@@ -26,8 +26,8 @@ export function AgentList({ agents, selectedAgent, setSelectedAgent }: AgentList
             <div
               key={agent.id}
               className={`p-3 rounded border cursor-pointer transition-colors ${selectedAgent?.id === agent.id
-                  ? 'bg-blue-100 border-blue-300'
-                  : 'bg-gray-50 border-gray-200 hover:bg-gray-100'
+                ? 'bg-blue-100 border-blue-300'
+                : 'bg-gray-50 border-gray-200 hover:bg-gray-100'
                 }`}
               onClick={() => setSelectedAgent(agent)}
             >

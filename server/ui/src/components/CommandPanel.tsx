@@ -1,7 +1,7 @@
 // src/components/CommandPanel.tsx
 import { useState } from 'react';
 import { Terminal, Send } from 'lucide-react';
-import { Agent, Command } from './types/Types';
+import { Agent, Command } from '../types/Types';
 
 interface CommandPanelProps {
   selectedAgent: Agent | null;
