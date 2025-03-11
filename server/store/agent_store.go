@@ -34,11 +34,11 @@ func (s *AgentStore) Register(agent *models.Agent) error {
 	agent.LastSeen = time.Now()
 	agent.IsActive = true
 	agent.Commands = []models.Command{}
-	return s.repo.Save(agent)
+	return s.db.Save(agent)
 }
 
 func (s *AgentStore) Get(id string) (*models.Agent, error) {
-	agent, err := s.repo.Get(id)
+	agent, err := s.db.Get(id)
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return nil, ErrAgentNotFound
@@ -49,7 +49,7 @@ func (s *AgentStore) Get(id string) (*models.Agent, error) {
 }
 
 func (s *AgentStore) List() ([]*models.Agent, error) {
-	agents, err := s.repo.GetAll()
+	agents, err := s.db.GetAll()
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +75,7 @@ func (s *AgentStore) UpdateLastSeen(id string) error {
 
 	agent.LastSeen = time.Now()
 	agent.IsActive = true
-	return s.repo.Save(agent)
+	return s.db.Save(agent)
 }
 
 func (s *AgentStore) UpdateAgentCommands(id string, cmd models.Command) error {
@@ -100,5 +100,5 @@ func (s *AgentStore) UpdateAgentCommands(id string, cmd models.Command) error {
 		agent.Commands = append(agent.Commands, cmd)
 	}
 
-	return s.repo.Save(agent)
+	return s.db.Save(agent)
 }

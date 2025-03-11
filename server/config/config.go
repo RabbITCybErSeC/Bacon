@@ -1,7 +1,7 @@
-// config/config.go
 package config
 
 import (
+	"flag"
 	"log"
 
 	"github.com/RabbITCybErSeC/Bacon/server/models"
@@ -10,19 +10,44 @@ import (
 )
 
 type ServerConfig struct {
-	DB        *gorm.DB
-	Port      string
-	Env       string
-	DBPath    string
-	MaxAgents int
+	DB         *gorm.DB
+	Port       string
+	Env        string
+	DBPath     string
+	MaxAgents  int
+	HTTPConfig HTTPConfig
+	UDPConfig  UDPConfig
+}
+
+type HTTPConfig struct {
+	Port    int
+	Enabled bool
+}
+
+type UDPConfig struct {
+	Port    int
+	Enabled bool
 }
 
 func NewServerConfig() *ServerConfig {
+	httpPort := flag.Int("http-port", 8080, "HTTP server port")
+	udpPort := flag.Int("udp-port", 8081, "UDP server port")
+	enableUDP := flag.Bool("enable-udp", false, "Enable UDP transport")
+	flag.Parse()
+
 	config := &ServerConfig{
-		Port:      ":8080",
+		Port:      ":8080", // Default port for HTTP server
 		Env:       "development",
 		DBPath:    "agents.db",
 		MaxAgents: 100,
+		HTTPConfig: HTTPConfig{
+			Port:    *httpPort,
+			Enabled: true, // Always enable HTTP for admin interface
+		},
+		UDPConfig: UDPConfig{
+			Port:    *udpPort,
+			Enabled: *enableUDP,
+		},
 	}
 
 	db, err := initializeDatabase(config.DBPath)
