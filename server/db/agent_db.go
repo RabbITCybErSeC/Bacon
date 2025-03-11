@@ -1,17 +1,18 @@
-package main
+package db
 
 import (
 	"github.com/RabbITCybErSeC/Bacon/server/models"
 	"gorm.io/gorm"
 )
 
-type AgentRepository struct {
-	db *gorm.DB
-}
-
 type AgentRepositoryInterface interface {
 	Save(agent *models.Agent) error
 	Get(id string) (*models.Agent, error)
+	GetAll() ([]models.Agent, error)
+}
+
+type AgentRepository struct {
+	db *gorm.DB
 }
 
 func NewAgentRepository(db *gorm.DB) *AgentRepository {
@@ -29,4 +30,13 @@ func (r *AgentRepository) Get(id string) (*models.Agent, error) {
 		return nil, err
 	}
 	return &agent, nil
+}
+
+func (r *AgentRepository) GetAll() ([]models.Agent, error) {
+	var agents []models.Agent
+	err := r.db.Find(&agents).Error
+	if err != nil {
+		return nil, err
+	}
+	return agents, nil
 }
