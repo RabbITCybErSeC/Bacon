@@ -13,12 +13,12 @@ import (
 )
 
 type Handler struct {
-	agentStore   store.AgentStore
+	agentStore   store.AgentStoreInterface
 	commandQueue queue.CommandQueue
 	engine       *gin.Engine
 }
 
-func NewHandler(agentStore store.AgentStore, commandQueue queue.CommandQueue) *Handler {
+func NewHandler(agentStore store.AgentStoreInterface, commandQueue queue.CommandQueue) *Handler {
 	h := &Handler{
 		agentStore:   agentStore,
 		commandQueue: commandQueue,

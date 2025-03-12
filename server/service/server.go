@@ -10,13 +10,13 @@ import (
 )
 
 type Server struct {
-	agentStore   store.AgentStore
+	agentStore   store.AgentStoreInterface
 	commandQueue queue.CommandQueue
 	protocols    map[string]transport.TransportProtocol
 	config       *config.ServerConfig
 }
 
-func NewServer(agentStore store.AgentStore, commandQueue queue.CommandQueue, config *config.ServerConfig) *Server {
+func NewServer(agentStore store.AgentStoreInterface, commandQueue queue.CommandQueue, config *config.ServerConfig) *Server {
 	return &Server{
 		agentStore:   agentStore,
 		commandQueue: commandQueue,

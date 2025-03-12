@@ -17,7 +17,7 @@ func main() {
 	cfg := config.NewServerConfig()
 
 	agentRepo := db.NewAgentRepository(cfg.DB)
-	agentStore := store.AgentStore(agentRepo)
+	agentStore := store.NewAgentStore(agentRepo)
 	commandQueue := queue.NewMemoryCommandQueue()
 
 	gin.SetMode(gin.ReleaseMode) // Set to release mode for production
@@ -25,7 +25,6 @@ func main() {
 
 	server := service.NewServer(agentStore, commandQueue, cfg)
 
-	// Add transport protocols
 	if cfg.HTTPConfig.Enabled {
 		httpTransport := transport.NewHTTPTransport(cfg.HTTPConfig, apiHandler)
 		server.AddTransport(httpTransport)
