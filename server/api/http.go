@@ -74,8 +74,8 @@ func (h *Handler) handleBeacon(c *gin.Context) {
 		return
 	}
 
-	_, exists := h.agentStore.Get(agentID)
-	if !exists {
+	_, err := h.agentStore.Get(agentID)
+	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Agent not found"})
 		return
 	}
