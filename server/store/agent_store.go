@@ -1,4 +1,3 @@
-// File: store/agent_store.go
 package store
 
 import (
