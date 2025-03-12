@@ -9,6 +9,7 @@ import (
 	"github.com/RabbITCybErSeC/Bacon/server/queue"
 	"github.com/RabbITCybErSeC/Bacon/server/service"
 	"github.com/RabbITCybErSeC/Bacon/server/store"
+	"github.com/RabbITCybErSeC/Bacon/server/transport"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,7 +17,7 @@ func main() {
 	cfg := config.NewServerConfig()
 
 	agentRepo := db.NewAgentRepository(cfg.DB)
-	agentStore := store.NewGormAgentStore(agentRepo)
+	agentStore := store.AgentStore(agentRepo)
 	commandQueue := queue.NewMemoryCommandQueue()
 
 	gin.SetMode(gin.ReleaseMode) // Set to release mode for production
@@ -29,10 +30,10 @@ func main() {
 		httpTransport := transport.NewHTTPTransport(cfg.HTTPConfig, apiHandler)
 		server.AddTransport(httpTransport)
 	}
-	if cfg.UDPConfig.Enabled {
-		udpTransport := transport.NewUDPTransport(cfg.UDPConfig)
-		server.AddTransport(udpTransport)
-	}
+	// if cfg.UDPConfig.Enabled {
+	// 	udpTransport := transport.NewUDPTransport(cfg.UDPConfig)
+	// 	server.AddTransport(udpTransport)
+	// }
 
 	if err := server.Start(); err != nil {
 		log.Fatalf("Failed to start server: %v", err)
